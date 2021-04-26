@@ -1,1 +1,1 @@
-export {default as Rps} from './rps'
+export {default as RPS_ABI} from './rps'
