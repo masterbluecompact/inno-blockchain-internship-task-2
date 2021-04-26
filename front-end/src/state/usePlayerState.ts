@@ -15,7 +15,10 @@ export const usePlayerState = (rps: any) => {
   useEffect(() => {
     if(wallet.status === 'connected'){
       // setRps(getContract(RPC_URL_RINKEBY, RPS_CONTRACT_ADDRESS_RINKEBY, RPS_ABI))
-      setBalance(rps.methods.getContractBalance().call())
+      const setbal = async () => {
+        setBalance(await rps.methods.getContractBalance().call())
+      }
+      setbal()
       setConnected(true)
     }
   }, [wallet.status]);
