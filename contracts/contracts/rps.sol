@@ -86,7 +86,7 @@ contract rps
         return this.balance;
     }
     
-    function register()
+    function register() public payable
         sentEnoughCash(5)
         notRegisteredYet()
     {

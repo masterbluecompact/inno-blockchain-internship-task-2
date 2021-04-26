@@ -48,8 +48,8 @@ function App() {
         <div>
           <div>Account: {wallet.account}</div>
           <div>Balance: {wallet.balance}</div>
-          {/* <div>Game State : {gameState}</div>
-          <div>RPS Balance : {rpsBalance}</div> */}
+          <div>Game State : {gameState.toString()}</div>
+          <div>RPS Balance : {rpsBalance.toString()}</div>
           <button onClick={() => wallet.reset()}>Disconnect</button>
         </div>
       ) : (

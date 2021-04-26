@@ -101,8 +101,8 @@ const abi: AbiItem[] = [
     inputs: [],
     name: "register",
     outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
+    payable: true,
+    stateMutability: "payable",
     type: "function",
   },
   {
@@ -146,8 +146,7 @@ const abi: AbiItem[] = [
     payable: false,
     stateMutability: "view",
     type: "function",
-  }
-]
+  },
+];
 
-export default abi
-
+export default abi;

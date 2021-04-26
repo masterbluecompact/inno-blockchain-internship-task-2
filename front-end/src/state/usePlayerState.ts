@@ -18,7 +18,7 @@ export const usePlayerState = (rps: any) => {
       setBalance(rps.methods.getContractBalance().call())
       setConnected(true)
     }
-  }, [wallet.status, rps.methods]);
+  }, [wallet.status]);
 
   useEffect(() => {
     if(!connected) return;
@@ -42,21 +42,23 @@ export const usePlayerState = (rps: any) => {
   useEffect(() => {
     if(!connected) return;
     if(!registered && !playersFull && playerId === -1){
-      try{
-        rps.methods.register().send({"from" : wallet.account, "value":5})
-      } catch (e){ console.error(e) }
-      const p1 = rps.methods.AmIPlayer1().call();
-      const p2 = rps.methods.AmIPlayer2().call();
+      const reg = async () => {
+        await rps.methods.register().send({"from" : wallet.account, "value":5}) // TODO: see issue
+        const p1 = await rps.methods.AmIPlayer1().call();
+        const p2 = await rps.methods.AmIPlayer2().call();
+        console.log([p1, p2])
+        if(p1 || p2) {
+          setRegistered(true)
+          setPlayerId(p1? 1 : 2)
+          setGameState("You are registered as player " + playerId.toString())
+        } else {
+          setFull(true)
+        }
+      };
+      reg();
 
-      if(p1 || p2) {
-        setRegistered(true)
-        setPlayerId(p1? 1 : 2)
-        setGameState("You are registered as player " + playerId.toString())
-      } else {
-        setFull(true)
-      }
     }
-  }, [registered, playersFull, playerId, connected, rps.methods, wallet.account]);
+  }, [registered, playersFull, playerId, connected, wallet.account]);
 
 
   return {
